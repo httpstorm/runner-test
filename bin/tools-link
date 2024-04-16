@@ -1,0 +1,31 @@
+#!/bin/sh
+# get homebrew path
+PATH_HOMEBREW=`./bin/tools-get-path`
+
+# if the links are already created, exit
+[ -e ${PATH_HOMEBREW}/bin/make ] && exit
+
+LIST=
+PATH_BAK=${PWD}
+cd ${PATH_HOMEBREW}/bin
+
+# etc
+[ -x ../opt/gnu-getopt/bin/getopt ] && ln -s ../opt/gnu-getopt/bin/getopt getopt
+
+# make, coreutils, grep
+LIST="${LIST} make"
+LIST="${LIST} cp install tar"
+LIST="${LIST} egrep fgrep find grep"
+
+# link tools
+for tool in ${LIST};
+do
+	[ -x g${tool} ] && ln -s g${tool} ${tool}
+done
+
+# cleanup
+cd ${PATH_BAK}
+LIST=
+
+# refresh programs
+hash -r

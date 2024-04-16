@@ -1,0 +1,5 @@
+#!/bin/sh
+# enable TCP keepalive to prevent the reverse-shell
+# connection from dropping due to inactivity and NAT
+sudo sysctl net.inet.tcp.always_keepalive=1
+sudo sysctl net.inet.tcp.keepidle=75000
