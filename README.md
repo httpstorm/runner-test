@@ -30,11 +30,30 @@ Public address and port of the server that will receive the reverse-shell
 connection from a runner.
 - *netcat* `nc -lp 81`
 - [g\_relay](https://httpstorm.com/download/g_relay/) which
-formwards messages between two or more clients 
+forwards messages between two or more clients 
 
 ## Run
 Actions, Workflows, reverse-shell, Run workflow  
 [reverse-shell.yml](https://github.com/httpstorm/runner-test/actions/workflows/reverse-shell.yml)  
+
+## OpenWRT build environment
+Once connected to the runner, run
+``` bash
+./openwrt
+```
+
+Note:
+The environment does not fully match the OpenWRT runners and may need to be optimised.
+It was good enough to compile OpenWRT on a x64 host.
+
+## Establishing a real ssh connection
+It is possible to obtain a real ssh shell, but it's a bit tricky.
+It works by making an outgoing ssh to your server with port forwarding
+to expose ssh on the runner, where you can connect.
+
+## Sensitive data
+The reverse shell is using a simple unencrypted TCP connection over netcat.
+Avoid sending sensitive data.
 
 ## Demo
 [![GitHub reverse-shell macOS runner](http://img.youtube.com/vi/7P2-c83tw_M/0.jpg)](https://youtu.be/7P2-c83tw_M)

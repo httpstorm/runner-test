@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# make sure we are on a hosted runner, else exit
+[ `whoami` == "runner" ] || exit
+[ -e ~/.reverse-shell ] && exit
+
+cd home
+
+[ -e ~/.bashrc ] && mv ~/.bashrc ~/.bashrc.ori
+cp -r ./user/. ~/
+sudo cp -r ./root/. /private/var/root/
+
+# nano configuration and Syntax Highlighting
+[ -d "/usr/local/Cellar/nano" ] && {
+	# Syntax Highlighting path for Intal based Mac
+	cp ./nano/.nanorc.intel ~/.nanorc
+	sudo cp ./nano/.nanorc.intel /private/var/root/.nanorc
+} || [ -d "/opt/homebrew/Cellar/nano" ] && {
+	# Syntax Highlighting path for Arm based Mac
+	cp ./nano/.nanorc.arm ~/.nanorc
+	sudo cp ./nano/.nanorc.arm /private/var/root/.nanorc
+} || {
+	# Syntax Highlighting path not found
+	cp ./nano/.nanorc ~/.nanorc
+	sudo cp ./nano/.nanorc /private/var/root/.nanorc
+}
+
+touch ~/.reverse-shell
+cd ..

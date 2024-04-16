@@ -1,0 +1,11 @@
+#!/bin/sh
+# get homebrew path
+
+[ -d /opt/homebrew ] &&
+{
+	# ARM based Mac
+	echo /opt/homebrew
+} || {
+	# Intel based Mac
+	echo /usr/local
+}

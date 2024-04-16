@@ -11,6 +11,7 @@ on:
 jobs:
   build:
 
+#    runs-on: macos-14
     runs-on: macos-latest
 #    runs-on: ubuntu-latest
 
@@ -19,8 +20,11 @@ jobs:
     - name: Install tools
       run: |
         brew update
-        brew install netcat bash
-#        brew install automake coreutils diffutils findutils gawk git-extras gnu-getopt gnu-sed grep make
+        brew install bash netcat
+        brew install gnu-sed gnu-which less quilt screen
+        brew install automake coreutils diffutils findutils gawk gengetopt git-extras gnu-getopt gnu-sed gpatch grep make
+        ./bin/tools-link
+        ./bin/system-config
     - name: configure
       run: ./configure
 #    - name: make

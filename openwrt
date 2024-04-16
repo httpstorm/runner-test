@@ -1,0 +1,29 @@
+#!/bin/sh
+
+echo install and link tools required for building OpenWRT
+echo brew install automake coreutils diffutils findutils gawk gengetopt git-extras gnu-getopt gnu-sed gpatch grep make
+echo ./bin/tools-link
+echo
+
+[ -e OpenWrt.sparseimage ] || hdiutil create -size 20g -type SPARSE -fs "Case-sensitive APFS" -volname OpenWrt OpenWrt.sparseimage
+hdiutil attach OpenWrt.sparseimage
+
+echo
+echo starting nested shell, to return and detach the virtual disk image
+echo exit
+echo
+echo detach image
+echo hdiutil detach /Volumes/OpenWrt
+echo
+echo clone OpenWRT
+echo git clone https://github.com/httpstorm/openwrt.git
+echo git clone https://github.com/openwrt/openwrt.git
+echo
+echo ./scripts/feeds update -a
+echo ./scripts/feeds install -a
+echo
+echo make defconfig
+
+(cd /Volumes/OpenWrt; bash -i)
+killall faked
+hdiutil detach /Volumes/OpenWrt

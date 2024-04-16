@@ -1,0 +1,7 @@
+#!/bin/sh
+# print runner information
+uname -a
+sw_vers
+echo to reconnect reverse shell in case the link drops
+echo touch ${GITHUB_WORKSPACE}/reconnect
+echo
